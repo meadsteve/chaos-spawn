@@ -4,6 +4,7 @@ defmodule ChaosSpawn do
   """
   use Application
   require Logger
+  alias ChaosSpawn.ProcessSpawner
 
   @process_watcher_name ChaosSpawn.ProcessWatcher
 
@@ -11,12 +12,16 @@ defmodule ChaosSpawn do
     ChaosSpawn.Supervisor.start_link
   end
 
-  def spawn(module, fun, args) do
-    ChaosSpawn.ProcessSpawner.spawn(module, fun, args, @process_watcher_name)
+  # For convience provide all 6 spawning functions
+  for spawn_fun <- [:spawn, :spawn_link, :spawn_monitor] do
+    def unquote(spawn_fun)(module, fun, args) do
+      apply(ProcessSpawner, unquote(spawn_fun), [module, fun, args, @process_watcher_name])
+    end
+
+    def unquote(spawn_fun)(fun) do
+      apply(ProcessSpawner, unquote(spawn_fun), [fun, @process_watcher_name])
+    end
   end
 
-  def spawn(fun) do
-    ChaosSpawn.ProcessSpawner.spawn(fun, @process_watcher_name)
-  end
 
 end
