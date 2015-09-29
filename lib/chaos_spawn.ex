@@ -15,7 +15,8 @@ defmodule ChaosSpawn do
   # For convience provide all 6 spawning functions
   for spawn_fun <- [:spawn, :spawn_link, :spawn_monitor] do
     def unquote(spawn_fun)(module, fun, args) do
-      apply(ProcessSpawner, unquote(spawn_fun), [module, fun, args, @process_watcher_name])
+      args = [module, fun, args, @process_watcher_name]
+      apply(ProcessSpawner, unquote(spawn_fun), args)
     end
 
     def unquote(spawn_fun)(fun) do
