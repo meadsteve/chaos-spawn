@@ -1,4 +1,8 @@
+# Elixir/mix stuff
 /_build
 /deps
 erl_crash.dump
 *.ez
+
+# Vagrant stuff
+/.vagrant
