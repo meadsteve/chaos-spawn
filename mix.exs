@@ -20,7 +20,7 @@ defmodule ChaosSpawn.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger]]
+    [applications: [:logger], mod: {ChaosSpawn, []}]
   end
 
   # Dependencies can be Hex packages:

@@ -3,7 +3,8 @@ defmodule ChaosSpawn.ProcessKiller do
   alias ChaosSpawn.ProcessWatcher
 
   def start_link(interval, probability, process_watcher) do
-    spawn(fn -> kill_loop(interval, probability, process_watcher) end)
+    pid = spawn(fn -> kill_loop(interval, probability, process_watcher) end)
+    {:ok, pid}
   end
 
   def kill(pid) do
