@@ -9,7 +9,7 @@ defmodule ProcessSpawnerTest do
 
   test "spawn/2 sends message to watcher with new pid" do
     pid = ProcessSpawner.spawn(&ProcessSpawnerTest.TestModule.test_fun/0, self)
-    assert_receive({:new_pid, ^pid})
+    assert_receive({:"$gen_cast", {:new_pid, ^pid}})
   end
 
   test "spawn/4 spawns a processes" do
@@ -19,7 +19,7 @@ defmodule ProcessSpawnerTest do
 
   test "spawn/4 sends message to watcher with new pid" do
     pid = ProcessSpawner.spawn(&ProcessSpawnerTest.TestModule.test_fun/0, self)
-    assert_receive({:new_pid, ^pid})
+    assert_receive({:"$gen_cast", {:new_pid, ^pid}})
   end
 
 end

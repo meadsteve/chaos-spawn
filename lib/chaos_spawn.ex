@@ -1,5 +1,6 @@
 defmodule ChaosSpawn do
   use Application
+  require Logger
 
   @process_watcher_name ChaosSpawn.ProcessWatcher
 

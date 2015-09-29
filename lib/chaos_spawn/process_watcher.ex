@@ -11,6 +11,10 @@ defmodule ChaosSpawn.ProcessWatcher do
     GenServer.call(process_watcher, {:get_random_pid})
   end
 
+  def add_pid(process_watcher, pid) do
+    GenServer.cast(process_watcher, {:new_pid, pid})
+  end
+
   #######  Server API
   def start_link(opts \\ []) do
     GenServer.start_link(__MODULE__, :ok, opts)
@@ -31,8 +35,7 @@ defmodule ChaosSpawn.ProcessWatcher do
     {:reply, pid, updated_pids}
   end
 
-  #######  Message section
-  def handle_info({:new_pid, pid}, pids) when is_pid(pid) do
+  def handle_cast({:new_pid, pid}, pids) when is_pid(pid) do
     updated_pids = case Process.alive?(pid) do
       true  -> [pid | pids]
       false -> pids
@@ -40,13 +43,9 @@ defmodule ChaosSpawn.ProcessWatcher do
     {:noreply, updated_pids}
   end
 
-  def handle_info({:new_pid, _invalid_pid}, pids) do
+  def handle_cast({:new_pid, _invalid_pid}, pids) do
     Logger.warn "Invalid PID recieved"
     {:noreply, pids}
-  end
-
-  def handle_info(_msg, state) do
-    {:noreply, state}
   end
 
   ####### Utilities
