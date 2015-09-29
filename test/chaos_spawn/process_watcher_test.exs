@@ -27,7 +27,6 @@ defmodule ProcessWatcherTest do
   end
 
   test "random pid returns :none if no pids available", %{watcher: watcher} do
-    new_pid = spawn &ProcessWatcherTest.TestModule.test_fun/0
     assert ProcessWatcher.get_random_pid(watcher) == :none
   end
 
