@@ -26,6 +26,11 @@ defmodule ProcessWatcherTest do
     assert ProcessWatcher.get_random_pid(watcher) == new_pid
   end
 
+  test "random pid returns :none if no pids available", %{watcher: watcher} do
+    new_pid = spawn &ProcessWatcherTest.TestModule.test_fun/0
+    assert ProcessWatcher.get_random_pid(watcher) == :none
+  end
+
   test "never returns dead pids", %{watcher: watcher} do
     pid_one = spawn &ProcessWatcherTest.TestModule.test_fun/0
     pid_two = spawn &ProcessWatcherTest.TestModule.test_fun/0

@@ -55,10 +55,15 @@ defmodule ChaosSpawn.ProcessWatcher do
   end
 
   defp pick_random_pid(pids) do
-    [pid] = pids
+    pids
       |> Enum.shuffle
-      |> Enum.take(1)
-    pid
+    case Enum.count(pids) do
+      0 ->
+        :none
+      _ ->
+        [pid] = pids |> Enum.take(1)
+        pid
+    end
   end
 
 end
