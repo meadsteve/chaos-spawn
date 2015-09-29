@@ -29,4 +29,16 @@ defmodule ChaosSpawn.ProcessSpawner do
     pid
   end
 
+  def spawn_monitor(module, fun, args, watcher) do
+    {pid, mon_ref} = Kernel.spawn_monitor(module, fun, args)
+    ProcessWatcher.add_pid(watcher, pid)
+    {pid, mon_ref}
+  end
+
+  def spawn_monitor(fun, watcher) do
+    {pid, mon_ref} = Kernel.spawn_monitor(fun)
+    ProcessWatcher.add_pid(watcher, pid)
+    {pid, mon_ref}
+  end
+
 end

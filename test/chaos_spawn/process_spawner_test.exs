@@ -24,6 +24,26 @@ defmodule ProcessSpawnerTest do
     end
   end
 
+  test "spawn_monitor/2 spawns a processes" do
+    {pid, _monitor_ref} = apply(ProcessSpawner, :spawn_monitor, [&ProcessSpawnerTest.TestModule.test_fun/0, self])
+    assert is_pid(pid)
+  end
+
+  test "spawn_monitor/2 sends message to watcher with new pid" do
+    {pid, _monitor_ref} = apply(ProcessSpawner, :spawn_monitor, [&ProcessSpawnerTest.TestModule.test_fun/0, self])
+    assert_receive({:"$gen_cast", {:new_pid, ^pid}})
+  end
+
+  test "spawn_monitor/4 spawns a processes" do
+    {pid, _monitor_ref} = apply(ProcessSpawner, :spawn_monitor, [ProcessSpawnerTest.TestModule, :test_fun, [], self])
+    assert is_pid(pid)
+  end
+
+  test "spawn_monitor/4 sends message to watcher with new pid" do
+    {pid, _monitor_ref} = apply(ProcessSpawner, :spawn_monitor, [ProcessSpawnerTest.TestModule, :test_fun, [], self])
+    assert_receive({:"$gen_cast", {:new_pid, ^pid}})
+  end
+
 end
 
 defmodule ProcessSpawnerTest.TestModule do
