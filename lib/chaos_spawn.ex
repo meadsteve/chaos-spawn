@@ -1,4 +1,7 @@
 defmodule ChaosSpawn do
+  @moduledoc """
+  The app for Chaos spawn. Provides all the wrapped spawn functions.
+  """
   use Application
   require Logger
 

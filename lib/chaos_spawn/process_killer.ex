@@ -1,4 +1,10 @@
 defmodule ChaosSpawn.ProcessKiller do
+  @moduledoc """
+  Module responsible for waiting and randomly killing processes.
+  Is dependent on being given a ChaosSpawn.ProcessWatcher to discover
+  proceses it can kill.
+  """
+
   require Logger
   alias ChaosSpawn.ProcessWatcher
 

@@ -1,4 +1,9 @@
 defmodule ChaosSpawn.ProcessWatcher do
+  @moduledoc """
+  GenServer implementation to record pids passed in and return random pids
+  when requested.
+  """
+
   use GenServer
   require Logger
 

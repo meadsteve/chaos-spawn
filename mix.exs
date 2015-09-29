@@ -33,6 +33,8 @@ defmodule ChaosSpawn.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    []
+    [
+      {:dogma, "0.0.8"}
+    ]
   end
 end

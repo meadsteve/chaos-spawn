@@ -1,4 +1,8 @@
 defmodule ChaosSpawn.ProcessSpawner do
+  @moduledoc """
+  Provides spawn functions that call Kernel.* methods
+  but also pass the new pid to the ChaosSpawn.ProcessWatcher
+  """
 
   def spawn(module, fun, args, watcher) do
     pid = Kernel.spawn(module, fun, args)

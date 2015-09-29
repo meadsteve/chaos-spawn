@@ -1,4 +1,7 @@
 defmodule ChaosSpawn.Supervisor do
+  @moduledoc """
+  Top level Supervisor for all ChaosSpawn workers.
+  """
   use Supervisor
 
   def start_link do
