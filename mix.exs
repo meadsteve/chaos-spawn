@@ -3,6 +3,12 @@ defmodule ChaosSpawn.Mixfile do
 
   def project do
     [app: :chaos_spawn,
+     name: "Chaos Spawn",
+     package: [
+       contributors: ["Steve Brazier"],
+       licenses: ["MIT"],
+       links: %{"GitHub" => "https://github.com/meadsteve/chaos-spawn"},
+     ],
      version: "0.0.1",
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
