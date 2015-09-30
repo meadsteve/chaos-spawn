@@ -41,9 +41,17 @@ defmodule ChaosSpawn.Example.Spawn do
 end
 ```
 ### Usage - in Gen servers
-Modify your gen servers start_link function in the following way:
+Instead of ```use```ing GenServer ```use``` the chaotic version and then
+modify the start_link as below:  
 ```elixir
-def start_link(opts \\ []) do
-  ChaosSpawn.Chaotic.GenServer.start_link(__MODULE__, :ok, opts)
+defmodule ChaosSpawn.Example.GenServer do
+  use ChaosSpawn.Chaotic.GenServer
+
+  def start_link(opts \\ []) do
+    # This function is imported when using ChaosSpawn.Chaotic.GenServer
+    start_chaotic_link(__MODULE__, :ok, opts)
+    # or to switch to the non chaotic version this is imported from GenServer:
+    # start_link(__MODULE__, :ok, opts)
+  end
 end
 ```

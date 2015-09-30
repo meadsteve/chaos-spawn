@@ -4,7 +4,7 @@ defmodule ChaosSpawn.Example.GenServer do
   The only change required from a normal gen server is
   in start_link
   """
-  use GenServer
+  use ChaosSpawn.Chaotic.GenServer
 
   ## Client API
   def say_hello(server) do
@@ -13,7 +13,10 @@ defmodule ChaosSpawn.Example.GenServer do
 
   #######  Server API
   def start_link(opts \\ []) do
-    ChaosSpawn.Chaotic.GenServer.start_link(__MODULE__, :ok, opts)
+    # This function is imported when using ChaosSpawn.Chaotic.GenServer
+    start_chaotic_link(__MODULE__, :ok, opts)
+    # or to switch to the non chaotic version this is imported from GenServer:
+    # start_link(__MODULE__, :ok, opts)
   end
 
   def init(:ok) do
