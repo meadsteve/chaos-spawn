@@ -1,4 +1,7 @@
 defmodule ChaosSpawn.Example.MessageSayer do
+  @moduledoc """
+  Example usage of an event
+  """
   use ChaosSpawn.Chaotic.GenEvent
 
   # Callbacks
