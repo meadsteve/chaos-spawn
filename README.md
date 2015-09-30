@@ -23,8 +23,8 @@ have unreliable spawn calls. This will automatically replace the spawn calls
 with the versions from the ```ChaosSpawn``` module.
 ``` elixir
 defmodule ChaosSpawn.Example.Spawn do
-  # Using the following with automatically repalce all the spawn
-  # functions with the choatic ones.
+  # Using the following will automatically replace all the spawn
+  # functions with the chaotic ones.
   use ChaosSpawn.Chaotic.Spawn
 
   def test do
