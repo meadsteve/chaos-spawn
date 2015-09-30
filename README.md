@@ -57,7 +57,7 @@ defmodule ChaosSpawn.Example.GenServer do
 end
 ```
 
-## Usage - in Gen events
+### Usage - in Gen events
 Replace ```GenEvent.start_link``` with ```ChaosSpawn.Chaotic.GenEvent.start_link```.
 ```elixir
 {:ok, pid} = ChaosSpawn.Chaotic.GenEvent.start_link([])
