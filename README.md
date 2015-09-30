@@ -5,8 +5,8 @@ ChaosSpawn
 ## What and why
 
 Inspired by netfix's chaos monkey. This library is intended to be a low level
-process based equivalent. Intended to work by replacing the ```Kernel.spawn```
-with overidden ones that return processes that die at random. This should
+process based equivalent. It works by replacing the ```Kernel.spawn```
+functions with overidden ones that return processes that die at random. This should
 force an app's supervision tree to actually work.
 
 Currently super alpha. Probably not a good idea to use yet.
