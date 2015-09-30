@@ -15,7 +15,7 @@ defmodule ProcessWatcherTest do
 
   test "doesn't store dead pids", %{watcher: watcher} do
     new_pid = spawn &ProcessWatcherTest.TestModule.test_fun/0
-    send new_pid, {:die}
+    Process.exit(new_pid, :kill)
     watcher |> ProcessWatcher.add_pid(new_pid)
     assert ProcessWatcher.all_pids(watcher) == []
   end
