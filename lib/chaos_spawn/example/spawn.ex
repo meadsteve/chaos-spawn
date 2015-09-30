@@ -1,6 +1,9 @@
 defmodule ChaosSpawn.Example.Spawn do
-  # Using the following will automatically replace all the spawn
-  # functions with the chaotic ones.
+  @moduledoc """
+  The module provides an example of using the spawn functions.
+  Using the following will automatically replace all the spawn
+  functions with the chaotic ones.
+  """
   use ChaosSpawn.Chaotic.Spawn
 
   def test do
