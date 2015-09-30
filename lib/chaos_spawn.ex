@@ -5,6 +5,7 @@ defmodule ChaosSpawn do
   use Application
   require Logger
   alias ChaosSpawn.ProcessSpawner
+  alias ChaosSpawn.ProcessWatcher
 
   @process_watcher_name ChaosSpawn.ProcessWatcher
 
@@ -22,6 +23,10 @@ defmodule ChaosSpawn do
     def unquote(spawn_fun)(fun) do
       apply(ProcessSpawner, unquote(spawn_fun), [fun, @process_watcher_name])
     end
+  end
+
+  def register_process(pid) do
+    ProcessWatcher.add_pid(@process_watcher_name, pid)
   end
 
 
