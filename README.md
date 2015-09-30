@@ -65,8 +65,9 @@ GenEvent.add_handler(pid, SomeHandler, [])
 ```
 
 ### Config
-Two keys are provided. The first ```kill_tick``` is how often chaos spawn
-looks for a process to kill. ```kill_probability``` is a float between 0 and
+Two keys are provided. The first ```kill_tick``` is the delay in milliseconds
+that between chaos spawn checking for processes to kill.
+```kill_probability``` is a float between 0 and
 1 that determines the probability of a process being killed each tick.
 
 ```elixir
