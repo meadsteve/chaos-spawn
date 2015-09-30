@@ -11,14 +11,22 @@ force an app's supervision tree to actually work.
 
 Currently super alpha. Probably not a good idea to use yet.
 
-## Usage
-Add Chaos Spawn as an application in your mix.exs:
+## Installation
+Add the following to your mix.exs dependencies:
+```elixir
+defp deps do
+  [ {:chaos_spawn, "~> 0.0.2"} ]
+end
+```
+then add chaos_spawn as an application in your mix.exs:
 
 ```elixir
 def application do
   [applications: [:logger, :chaos_spawn]]
 end
 ```
+
+## Usage
 
 ### Usage - in manual spawns
 Use ```ChaosSpawn.Chaotic.Spawn``` in any module you wish to
