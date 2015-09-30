@@ -1,4 +1,4 @@
-ChaosSpawn
+Chaos Spawn
 ==========
 [![Build Status](https://travis-ci.org/meadsteve/chaos-spawn.svg?branch=master)](https://travis-ci.org/meadsteve/chaos-spawn)
 
@@ -57,7 +57,7 @@ end
 ```
 
 ## Contributing
-Contributions to this repo are more than welcome. Couple of guidlines for succesfull PRs:
+Contributions to this repo are more than welcome. Guidlines for succesfull PRs:
 * Any large changes should ideally be opened as an issue first so a disucssion can be had.
 * Code should best tested.
 * Code under ```lib/``` should conform to coding standards tested by https://github.com/lpil/dogma . You can test this by running ```mix dogma lib/```
