@@ -67,5 +67,5 @@ GenEvent.add_handler(pid, SomeHandler, [])
 ## Contributing
 Contributions to this repo are more than welcome. Guidlines for succesfull PRs:
 * Any large changes should ideally be opened as an issue first so a disucssion can be had.
-* Code should best tested.
+* Code should be tested.
 * Code under ```lib/``` should conform to coding standards tested by https://github.com/lpil/dogma . You can test this by running ```mix dogma lib/```
