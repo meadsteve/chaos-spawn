@@ -21,7 +21,7 @@ end
 ```
 
 ### Usage - in manual spawns
-Simply use ```ChaosSpawn.Chaotic.Spawn``` in any module you wish to
+Use ```ChaosSpawn.Chaotic.Spawn``` in any module you wish to
 have unreliable spawn calls. This will automatically replace the spawn calls
 with the versions from the ```ChaosSpawn``` module.
 ``` elixir
@@ -40,6 +40,7 @@ defmodule ChaosSpawn.Example.Spawn do
   end
 end
 ```
+
 ### Usage - in Gen servers
 Instead of ```use```ing GenServer ```use``` the chaotic version and then
 modify the start_link as below:  
@@ -54,6 +55,13 @@ defmodule ChaosSpawn.Example.GenServer do
     # start_link(__MODULE__, :ok, opts)
   end
 end
+```
+
+## Usage - in Gen events
+Replace ```GenEvent.start_link``` with ```ChaosSpawn.Chaotic.GenEvent.start_link```.
+```elixir
+{:ok, pid} = ChaosSpawn.Chaotic.GenEvent.start_link([])
+GenEvent.add_handler(pid, SomeHandler, [])
 ```
 
 ## Contributing
