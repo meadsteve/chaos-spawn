@@ -34,7 +34,9 @@ defmodule ChaosSpawn.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:dogma, "0.0.8", only: [:dev, :test]}
+      {:dogma, "0.0.8", only: [:dev, :test]},
+      {:earmark, "~> 0.1", only: :dev},
+      {:ex_doc, "~> 0.8", only: :dev}
     ]
   end
 end
