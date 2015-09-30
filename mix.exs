@@ -9,7 +9,7 @@ defmodule ChaosSpawn.Mixfile do
        licenses: ["MIT"],
        links: %{"GitHub" => "https://github.com/meadsteve/chaos-spawn"},
      ],
-     version: "0.0.1",
+     version: "0.0.2",
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
@@ -34,7 +34,7 @@ defmodule ChaosSpawn.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:dogma, "0.0.8"}
+      {:dogma, "0.0.8", only: [:dev, :test]}
     ]
   end
 end
