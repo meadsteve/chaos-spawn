@@ -13,7 +13,7 @@ defmodule ChaosSpawn.Supervisor do
   @process_tidy_up_tick 2000 #2 seconds
 
   @default_kill_tick 1000 #1 second
-  @default_kill_probability 0.1
+  @default_kill_probability 0.015 # Kill about 1 process a minute
 
   def init(:ok) do
     kill_tick        = get_setting :kill_tick, @default_kill_tick
