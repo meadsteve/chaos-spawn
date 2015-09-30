@@ -64,6 +64,17 @@ Replace ```GenEvent.start_link``` with ```ChaosSpawn.Chaotic.GenEvent.start_link
 GenEvent.add_handler(pid, SomeHandler, [])
 ```
 
+### Config
+Two keys are provided. The first ```kill_tick``` is how often chaos spawn
+looks for a process to kill. ```kill_probability``` is a float between 0 and
+1 that determines the probability of a process being killed each tick.
+
+```elixir
+config :chaos_spawn, :kill_tick, 1000
+config :chaos_spawn, :kill_probability, 0.1
+```
+
+
 ## Contributing
 Contributions to this repo are more than welcome. Guidlines for succesfull PRs:
 * Any large changes should ideally be opened as an issue first so a disucssion can be had.
