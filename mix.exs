@@ -5,7 +5,7 @@ defmodule ChaosSpawn.Mixfile do
     [app: :chaos_spawn,
      name: "Chaos Spawn",
      package: [
-       contributors: ["Steve Brazier"],
+       maintainers: ["Steve Brazier"],
        licenses: ["MIT"],
        links: %{"GitHub" => "https://github.com/meadsteve/chaos-spawn"},
      ],
