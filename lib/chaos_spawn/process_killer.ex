@@ -8,9 +8,14 @@ defmodule ChaosSpawn.ProcessKiller do
   require Logger
   alias ChaosSpawn.ProcessWatcher
 
-  def start_link(interval, probability, process_watcher) do
-    pid = spawn(fn -> kill_loop(interval, probability, process_watcher) end)
+  def start_link(interval, probability, watcher, name: pid_name) do
+    pid = spawn(fn -> kill_loop(interval, probability, watcher) end)
+    Process.register pid, pid_name
     {:ok, pid}
+  end
+
+  def start_link(interval, probability, watcher) do
+    start_link(interval, probability, watcher, name: ChaosSpawn.ProcessKiller)
   end
 
   def kill(pid) do
@@ -18,12 +23,22 @@ defmodule ChaosSpawn.ProcessKiller do
     Process.exit(pid, :kill)
   end
 
-  defp kill_loop(interval, probability, process_watcher) do
+  defp kill_loop(interval, probability, process_watcher, active \\ true) do
     :timer.sleep(interval)
-    if :random.uniform <= probability do
+    remain_active = still_active?(active)
+    if remain_active and (:random.uniform <= probability) do
       fetch_and_kill(process_watcher)
     end
-    kill_loop(interval, probability, process_watcher)
+    kill_loop(interval, probability, process_watcher, remain_active)
+  end
+
+  defp still_active?(active) when is_boolean(active)  do
+    receive do
+      {:switch_on}  -> still_active?(true)
+      {:switch_off} -> still_active?(false)
+    after
+      0_001         -> active # No more messages
+    end
   end
 
   defp fetch_and_kill(process_watcher) do
