@@ -13,22 +13,22 @@ defmodule ChaosSpawn.Supervisor do
   @process_tidy_up_tick 2000 #2 seconds
 
   @default_kill_tick 1000 #1 second
-  @default_kill_probability 0.015 # Kill about 1 process a minute
+  @default_kill_prob 0.015 # Kill about 1 process a minute
 
   def init(:ok) do
-    kill_tick        = get_setting :kill_tick, @default_kill_tick
-    kill_probability = get_setting :kill_probability, @default_kill_probability
-
     children = [
       worker(ChaosSpawn.ProcessWatcher, [[name: @process_watcher_name]]),
       worker(ChaosSpawn.ProcessKiller,
-        [kill_tick, kill_probability, @process_watcher_name]
+        [kill_tick, kill_prob, @process_watcher_name]
       ),
       worker(Task, [&tidy_pid_list/0])
     ]
 
     supervise(children, strategy: :one_for_one)
   end
+
+  defp kill_tick, do: get_setting(:kill_tick, @default_kill_tick)
+  defp kill_prob, do: get_setting(:kill_probability, @default_kill_prob)
 
   defp get_setting(setting, default) do
     Application.get_env(:chaos_spawn, setting, default)
