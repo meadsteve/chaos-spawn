@@ -19,9 +19,7 @@ defmodule ChaosSpawn.ProcessKiller do
   end
 
   defp kill_loop(interval, probability, process_watcher) do
-    Logger.debug("Sleeping for #{interval} ms")
     :timer.sleep(interval)
-    Logger.debug("Deciding if a process should be killed #{probability}")
     if :random.uniform <= probability do
       fetch_and_kill(process_watcher)
     end
