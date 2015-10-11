@@ -3,7 +3,7 @@ The ```ChaosSpawn``` module provides the following function that can be used
 to register any pid. This pid is then eligible to be terminated randomly.
 
 ``` elixir
-ChaosSpawn.registr_pid( pid )
+ChaosSpawn.register_pid( pid )
 ```
 
 For example adding this to a simple gen server's init would look like:
