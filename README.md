@@ -28,6 +28,17 @@ end
 
 ## Usage
 
+### Control
+The moment the app is started chaos spawn starts potential killing processes.
+This can be stopped by calling
+```elixir
+  ChaosSpawn.stop
+```
+and then later restarted with:
+```elixir
+  ChaosSpawn.start
+```
+
 ### Usage - in manual spawns
 Use ```ChaosSpawn.Chaotic.Spawn``` in any module you wish to
 have unreliable spawn calls. This will automatically replace the spawn calls
