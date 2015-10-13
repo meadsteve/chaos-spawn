@@ -1,4 +1,8 @@
 defmodule ChaosSpawn.Config do
+  @moduledoc """
+  Wraps around config keys used by ChaosSpawn
+  """
+
   def kill_config do
     case get_setting(:only_kill_between) do
       nil         -> []
