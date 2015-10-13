@@ -1,4 +1,8 @@
 defmodule ChaosSpawn.Time do
+  @moduledoc """
+  Wraps all time operations needed by ChaosSpawn
+  """
+
   alias Timex.Date.Convert
 
   is_fixed_now = Application.get_env(:chaos_spawn, :fake_fixed_now, false)
