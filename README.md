@@ -48,14 +48,20 @@ following documents show how to do this:
 [HOWTO: Add chaos spawn manually](usage-manual.md)
 
 ### Config
-Two keys are provided. The first ```kill_tick``` is the delay in milliseconds
-that between chaos spawn checking for processes to kill.
-```kill_probability``` is a float between 0 and
-1 that determines the probability of a process being killed each tick.
+A number of options are provided:
+#### ```kill_tick```
+The delay in milliseconds between chaos spawn checking for processes to kill.
+#### ```kill_probability```
+ A float between 0 and 1 that determines the probability of a process being
+ killed each tick.
+#### ```only_kill_between```
+Takes a start and end time (always utc) and  chaos spawn will only kill
+processes between these times.
 
 ```elixir
 config :chaos_spawn, :kill_tick, 1000
 config :chaos_spawn, :kill_probability, 0.1
+config :chaos_spawn, :only_kill_between, {{10, 00, 00}, {16, 00, 00}}
 ```
 
 
