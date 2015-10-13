@@ -5,9 +5,11 @@ defmodule ChaosSpawn.Time do
 
   alias Timex.Date.Convert
 
-  is_fixed_now = Application.get_env(:chaos_spawn, :fake_fixed_now, false)
-  if is_fixed_now do
-    def now, do: Timex.Date.from({{2014, 12, 13}, {14, 50, 00}})
+  @use_fake_now Application.get_env(:chaos_spawn, :fake_fixed_now, false)
+  @fake_now {{2014, 12, 13}, {14, 50, 00}}
+
+  if @use_fake_now do
+    def now, do: Timex.Date.from(@fake_now)
   else
     def now, do: Timex.Date.now
   end
