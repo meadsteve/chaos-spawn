@@ -7,6 +7,7 @@ defmodule ChaosSpawn.ProcessKiller do
 
   require Logger
   alias ChaosSpawn.ProcessWatcher
+  alias ChaosSpawn.Time
 
   def start_link(interval, probability, watcher, name: pid_name) do
     pid = spawn(fn -> kill_loop(interval, probability, watcher) end)
@@ -18,7 +19,14 @@ defmodule ChaosSpawn.ProcessKiller do
     start_link(interval, probability, watcher, name: ChaosSpawn.ProcessKiller)
   end
 
-  def kill(pid) do
+  def kill(pid), do: kill(pid, [])
+
+  def kill(pid, only_kill_between: {start_time, end_time}) do
+    in_killing_window? = Time.now |> Time.between?(start_time, end_time)
+    if in_killing_window?, do: kill(pid, [])
+  end
+
+  def kill(pid, []) do
     Logger.debug("Killing pid #{inspect pid}")
     Process.exit(pid, :kill)
   end
