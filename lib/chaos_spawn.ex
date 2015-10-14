@@ -8,7 +8,7 @@ defmodule ChaosSpawn do
   alias ChaosSpawn.ProcessWatcher
 
   @process_watcher ChaosSpawn.ProcessWatcher
-  @process_killer ChaosSpawn.ProcessKiller
+  @kill_loop ChaosSpawn.KillLoop
 
   def start(_type, _args) do
     ChaosSpawn.Supervisor.start_link
@@ -31,11 +31,11 @@ defmodule ChaosSpawn do
   end
 
   def stop do
-    send @process_killer, {:switch_off}
+    send @kill_loop, {:switch_off}
   end
 
   def start do
-    send @process_killer, {:switch_on}
+    send @kill_loop, {:switch_on}
   end
 
 end
