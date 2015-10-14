@@ -3,6 +3,7 @@ defmodule ChaosSpawn.Supervisor do
   Top level Supervisor for all ChaosSpawn workers.
   """
   use Supervisor
+  alias ChaosSpawn.Config
 
   def start_link do
     Supervisor.start_link(__MODULE__, :ok)
@@ -13,8 +14,6 @@ defmodule ChaosSpawn.Supervisor do
 
   @process_tidy_up_tick 2000 #2 seconds
 
-  @default_kill_tick 1000 #1 second
-  @default_kill_prob 0.015 # Kill about 1 process a minute
 
   def init(:ok) do
     children = [
@@ -28,12 +27,8 @@ defmodule ChaosSpawn.Supervisor do
     supervise(children, strategy: :one_for_one)
   end
 
-  defp kill_tick, do: get_setting(:kill_tick, @default_kill_tick)
-  defp kill_prob, do: get_setting(:kill_probability, @default_kill_prob)
-
-  defp get_setting(setting, default) do
-    Application.get_env(:chaos_spawn, setting, default)
-  end
+  defp kill_tick, do: Config.kill_tick
+  defp kill_prob, do: Config.kill_prob
 
   defp tidy_pid_list do
     :timer.sleep(@process_tidy_up_tick)
