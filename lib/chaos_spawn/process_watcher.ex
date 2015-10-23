@@ -3,63 +3,36 @@ defmodule ChaosSpawn.ProcessWatcher do
   GenServer implementation to record pids passed in and return random pids
   when requested.
   """
-
-  use GenServer
+  use ExActor.GenServer
   require Logger
 
-  ## Client API
-  def all_pids(process_watcher) do
-    GenServer.call(process_watcher, {:all_pids})
-  end
+  defstart start_link, gen_server_opts: :runtime, do: initial_state([])
 
-  def get_random_pid(process_watcher) do
-    GenServer.call(process_watcher, {:get_random_pid})
-  end
+  defcall all_pids, state: pids, do: reply(pids)
 
-  def add_pid(process_watcher, pid) do
-    GenServer.cast(process_watcher, {:new_pid, pid})
-  end
-
-  def tidy_pids(process_watcher) do
-    GenServer.cast(process_watcher, {:tidy_pids})
-  end
-
-  #######  Server API
-  def start_link(opts \\ []) do
-    GenServer.start_link(__MODULE__, :ok, opts)
-  end
-
-  def init(:ok) do
-    {:ok, []}
-  end
-
-  def handle_call({:all_pids}, _from, pids) do
-    {:reply, pids, pids}
-  end
-
-  def handle_call({:get_random_pid}, _from, pids) do
-    updated_pids = pids
-      |> only_alive_pids
+  defcall get_random_pid, state: pids do
+    updated_pids = pids |> only_alive_pids
     pid = pick_random_pid(updated_pids)
-    {:reply, pid, updated_pids}
+
+    set_and_reply(updated_pids, pid)
   end
 
-  def handle_cast({:new_pid, pid}, pids) when is_pid(pid) do
+  defcast add_pid(pid), state: pids do
     updated_pids = case Process.alive?(pid) do
       true  -> [pid | pids]
       false -> pids
     end
-    {:noreply, updated_pids}
+    new_state(updated_pids)
   end
 
-  def handle_cast({:new_pid, _invalid_pid}, pids) do
-    Logger.warn "Invalid PID recieved"
-    {:noreply, pids}
+  defcast tidy_pids(), state: pids do
+    new_state(pids |> only_alive_pids)
   end
+  # def handle_cast({:new_pid, _invalid_pid}, pids) do
+  #   Logger.warn "Invalid PID recieved"
+  #   {:noreply, pids}
+  # end
 
-  def handle_cast({:tidy_pids}, pids) do
-    {:noreply, pids |> only_alive_pids}
-  end
 
   ####### Utilities
   defp only_alive_pids(pids) do
