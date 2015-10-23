@@ -25,9 +25,9 @@ defmodule ChaosSpawn.ProcessWatcher do
     new_state(updated_pids)
   end
 
-  defcast add_pid(_), state: pids do
+  defcast add_pid(_) do
     Logger.warn "Invalid PID recieved"
-    new_state(pids)
+    noreply
   end
 
   defcast tidy_pids(), state: pids do
