@@ -1,4 +1,7 @@
 defmodule ChaosSpawn.PidList do
+  @moduledoc """
+  Utilities for dealing with lists of pids
+  """
 
   def only_alive(pids) do
     pids
