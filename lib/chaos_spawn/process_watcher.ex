@@ -17,7 +17,7 @@ defmodule ChaosSpawn.ProcessWatcher do
     set_and_reply(updated_pids, pid)
   end
 
-  defcast add_pid(pid), state: pids do
+  defcast add_pid(pid), when: is_pid(pid), state: pids do
     updated_pids = case Process.alive?(pid) do
       true  -> [pid | pids]
       false -> pids
@@ -25,13 +25,14 @@ defmodule ChaosSpawn.ProcessWatcher do
     new_state(updated_pids)
   end
 
+  defcast add_pid(_), state: pids do
+    Logger.warn "Invalid PID recieved"
+    new_state(pids)
+  end
+
   defcast tidy_pids(), state: pids do
     new_state(pids |> only_alive_pids)
   end
-  # def handle_cast({:new_pid, _invalid_pid}, pids) do
-  #   Logger.warn "Invalid PID recieved"
-  #   {:noreply, pids}
-  # end
 
 
   ####### Utilities
