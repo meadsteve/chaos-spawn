@@ -1,4 +1,8 @@
 defmodule ChaosSpawn.Chaotic.ChaoticWorker do
+  @moduledoc """
+  Provides worker/2 and worker/3 that wrap around Supervisor.Spec's worker
+  functions and registered any spawned pids with ChaosSpawn's process killer.
+  """
   alias Supervisor.Spec, as: OriginalSupervisor
 
   def worker(module, args) do
@@ -17,7 +21,8 @@ defmodule ChaosSpawn.Chaotic.ChaoticWorker do
   def start_link_wrapper(module, function, args)
   when is_atom(module) and is_atom(function)
   do
-    apply(module, function, args)
+    module
+      |> apply(function, args)
       |> register_start_result
   end
 
