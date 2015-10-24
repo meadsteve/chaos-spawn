@@ -5,10 +5,10 @@ defmodule ChaosSpawn.Config do
 
   @default_kill_tick 1000  # 1 second
   @default_kill_prob 0.015 # Kill about 1 process a minute
-  @defualt_kill_window :anytime
+  @default_kill_window :anytime
 
   def kill_config do
-    case get_setting(:only_kill_between, @defualt_kill_window) do
+    case get_setting(:only_kill_between, @default_kill_window) do
       :anytime    -> []
       time_window -> [{:only_kill_between, time_window}]
     end
