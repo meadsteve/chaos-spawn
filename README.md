@@ -5,17 +5,15 @@ Chaos Spawn
 ## What and why
 
 Inspired by netfix's chaos monkey. This library is intended to be a low level
-process based equivalent. It works by replacing the ```Kernel.spawn```
-functions with overidden ones that return processes that die at random. This should
-force an app's supervision tree to actually work.
+process based equivalent. It works storing a list of procceses that are periodically terminated at random. Helper modules are provided to make it easy to register proceses as ones that can be killed. The intention is that this should force the design of an app's supervision tree to actually work.
 
-Currently super alpha. Probably not a good idea to use yet.
+This is still fairly early alpha work. So please test before adding to any live projects you may have.
 
 ## Installation
 Add the following to your mix.exs dependencies:
 ```elixir
 defp deps do
-  [ {:chaos_spawn, "~> 0.0.2"} ]
+  [ {:chaos_spawn, "~> 0.3.0"} ]
 end
 ```
 then add chaos_spawn as an application in your mix.exs:
