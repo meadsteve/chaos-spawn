@@ -5,7 +5,7 @@ Chaos Spawn
 ## What and why
 
 Inspired by netfix's chaos monkey. This library is intended to be a low level
-process based equivalent. It works storing a list of procceses that are periodically terminated at random. Helper modules are provided to make it easy to register proceses as ones that can be killed. The intention is that this should force the design of an app's supervision tree to actually work.
+process based equivalent. It works by storing a list of procceses that are periodically terminated at random. Helper modules are provided to make it easy to register proceses as ones that can be killed. The intention is that this should force the design of an app's supervision tree to actually work.
 
 This is still fairly early alpha work. So please test before adding to any live projects you may have.
 
