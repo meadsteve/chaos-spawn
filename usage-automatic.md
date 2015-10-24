@@ -23,6 +23,25 @@ defmodule ChaosSpawn.Example.Spawn do
 end
 ```
 
+## In Workers of a Supervisor
+Replace a call to ```worker``` with a call to ```ChaosSpawn.Chaotic.ChaoticWorker.worker```.
+Any proceses of this child will then be automatically registered as a process that can be killed.
+
+``` elixir
+defmodule ChaosSpawn.Example.Supervisor do
+  alias ChaosSpawn.Chaotic.ChaoticWorker
+
+  def init(:ok) do
+    children = [
+      ChaoticWorker.worker(Some.Module, [:arg, :another_arg])
+    ]
+
+    supervise(children, strategy: :one_for_one)
+  end
+
+end
+```
+
 ## In Gen servers
 Instead of ```use```ing GenServer ```use``` the chaotic version and then
 modify the start_link as below:  
