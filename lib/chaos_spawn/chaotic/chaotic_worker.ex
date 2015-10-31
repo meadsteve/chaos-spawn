@@ -24,7 +24,9 @@ defmodule ChaosSpawn.Chaotic.ChaoticWorker do
     start_link_wrapper(module, function, args, skip_modules: [])
   end
 
-  def start_link_wrapper(module, function, args, skip_modules: skipped) do
+  def start_link_wrapper(module, function, args, skip_modules: skipped)
+  when is_atom(module) and is_atom(function) and is_list(skipped)
+  do
     module
       |> apply(function, args)
       |> register_unless_skipped(module, skipped)
@@ -46,7 +48,7 @@ defmodule ChaosSpawn.Chaotic.ChaoticWorker do
   defp register_start_result(failed) do
     failed
   end
-  
+
   defp skip_module?(skipped_modules, module) do
     Enum.member?(skipped_modules, module)
   end
