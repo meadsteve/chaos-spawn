@@ -4,6 +4,7 @@ defmodule ChaosSpawn.Chaotic.ChaoticWorker do
   functions and registered any spawned pids with ChaosSpawn's process killer.
   """
   alias Supervisor.Spec, as: OriginalSupervisor
+  alias ChaosSpawn.Config
 
   def worker(module, args) do
     worker(module, args, function: :start_link)
@@ -21,7 +22,8 @@ defmodule ChaosSpawn.Chaotic.ChaoticWorker do
   def start_link_wrapper(module, function, args)
   when is_atom(module) and is_atom(function)
   do
-    start_link_wrapper(module, function, args, skip_modules: [])
+    skipped_modules = Config.skipped_workers
+    start_link_wrapper(module, function, args, skip_modules: skipped_modules)
   end
 
   def start_link_wrapper(module, function, args, skip_modules: skipped)
