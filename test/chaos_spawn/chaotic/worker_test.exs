@@ -3,6 +3,12 @@ defmodule Chaotic.WorkerTest do
   alias ChaosSpawn.Chaotic.ChaoticWorker
   alias Chaotic.WorkerTest.Example
 
+  setup do
+    ChaosSpawn.stop
+    on_exit fn -> ChaosSpawn.start end
+    :ok
+  end
+
   test "worker/2 wraps up a call to Supervisor.Spec worker" do
     args = [:arg_one, :arg_two]
 
@@ -42,11 +48,9 @@ defmodule Chaotic.WorkerTest do
   end
 
   test "start_link_wrapper/3 registers the pid with ChaosSpawn" do
-    ChaosSpawn.stop
     args = [:expected_arg]
     {:ok, pid} = ChaoticWorker.start_link_wrapper(Example, :start_link, args)
     assert ChaosSpawn.process_registered?(pid)
-    ChaosSpawn.start
   end
 end
 
