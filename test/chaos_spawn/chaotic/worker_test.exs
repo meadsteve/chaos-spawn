@@ -40,6 +40,14 @@ defmodule Chaotic.WorkerTest do
     {:ok, pid} = ChaoticWorker.start_link_wrapper(Example, :start_link, args)
     assert is_pid(pid)
   end
+
+  test "start_link_wrapper/3 registers the pid with ChaosSpawn" do
+    ChaosSpawn.stop
+    args = [:expected_arg]
+    {:ok, pid} = ChaoticWorker.start_link_wrapper(Example, :start_link, args)
+    assert ChaosSpawn.process_registered?(pid)
+    ChaosSpawn.start
+  end
 end
 
 defmodule Chaotic.WorkerTest.Example do
