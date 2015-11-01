@@ -9,6 +9,10 @@ defmodule ChaosSpawn.Mixfile do
        licenses: ["MIT"],
        links: %{"GitHub" => "https://github.com/meadsteve/chaos-spawn"},
      ],
+     source_url: "https://github.com/meadsteve/chaos-spawn",
+     docs: [
+       extras: ["README.md", "usage-automatic.md", "usage-manual.md"]
+     ],
      version: "0.4.0",
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
