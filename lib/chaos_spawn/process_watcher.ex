@@ -8,9 +8,11 @@ defmodule ChaosSpawn.ProcessWatcher do
 
   defstart start_link, gen_server_opts: :runtime, do: initial_state([])
 
-  defcall all_pids, state: pids, do: reply(pids)
+  defcall all_pids(), state: pids, do: reply(pids)
 
-  defcall get_random_pid, state: pids do
+  defcall contains_pid?(pid), state: pids, do: reply(pids |> Enum.member?(pid))
+
+  defcall get_random_pid(), state: pids do
     updated_pids = pids |> ChaosSpawn.PidList.only_alive
     pid = ChaosSpawn.PidList.pick_random(updated_pids)
 

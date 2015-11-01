@@ -13,6 +13,12 @@ defmodule ProcessWatcherTest do
     assert ProcessWatcher.all_pids(watcher) == [new_pid]
   end
 
+  test "can query if a pid is being watched", %{watcher: watcher} do
+    new_pid = spawn &ProcessWatcherTest.TestModule.test_fun/0
+    watcher |> ProcessWatcher.add_pid(new_pid)
+    assert watcher |> ProcessWatcher.contains_pid?(new_pid)
+  end
+
   test "doesn't store dead pids", %{watcher: watcher} do
     new_pid = spawn &ProcessWatcherTest.TestModule.test_fun/0
     Process.exit(new_pid, :kill)
