@@ -1,15 +1,17 @@
 defmodule ChaosSpawn.Mixfile do
   use Mix.Project
 
+  def github_url, do: "https://github.com/meadsteve/chaos-spawn"
+
   def project do
     [app: :chaos_spawn,
      name: "Chaos Spawn",
      package: [
        maintainers: ["Steve Brazier"],
        licenses: ["MIT"],
-       links: %{"GitHub" => "https://github.com/meadsteve/chaos-spawn"},
+       links: %{"GitHub" => github_url},
      ],
-     source_url: "https://github.com/meadsteve/chaos-spawn",
+     source_url: github_url,
      docs: [
        extras: ["README.md", "usage-automatic.md", "usage-manual.md"]
      ],
