@@ -31,6 +31,8 @@ defmodule ProcessWatcherTest do
     watcher |> ProcessWatcher.add_pid(new_pid)
     assert ProcessWatcher.all_pids(watcher) != []
     Process.exit(new_pid, :kill)
+    
+    assert not Process.alive?(new_pid)
     assert ProcessWatcher.all_pids(watcher) == []
   end
 
