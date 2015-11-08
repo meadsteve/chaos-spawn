@@ -3,20 +3,21 @@ defmodule ChaosSpawn.PidList do
   Utilities for dealing with lists of pids
   """
 
+
   def only_alive(pids) do
     pids
-      |> Enum.filter(&Process.alive?/1)
+      |> Stream.filter(&Process.alive?/1)
   end
 
   def pick_random(pids) do
-    pids
-      |> Enum.shuffle
-    case Enum.count(pids) do
-      0 ->
-        :none
-      _ ->
-        [pid] = pids |> Enum.take(1)
-        pid
+    try do
+      [pid] = pids
+        |> Enum.shuffle
+        |> only_alive
+        |> Enum.take 1
+      pid
+    rescue
+      error in MatchError -> :none
     end
   end
 

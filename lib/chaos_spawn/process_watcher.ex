@@ -13,10 +13,8 @@ defmodule ChaosSpawn.ProcessWatcher do
   defcall contains_pid?(pid), state: pids, do: reply(pids |> Enum.member?(pid))
 
   defcall get_random_pid(), state: pids do
-    updated_pids = pids |> ChaosSpawn.PidList.only_alive
-    pid = ChaosSpawn.PidList.pick_random(updated_pids)
-
-    set_and_reply(updated_pids, pid)
+    pid = ChaosSpawn.PidList.pick_random(pids)
+    reply(pid)
   end
 
   defcast add_pid(pid), when: is_pid(pid), state: pids do
