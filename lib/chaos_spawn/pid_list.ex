@@ -17,7 +17,7 @@ defmodule ChaosSpawn.PidList do
         |> Enum.take 1
       pid
     rescue
-      error in MatchError -> :none
+      _error in MatchError -> :none
     end
   end
 
