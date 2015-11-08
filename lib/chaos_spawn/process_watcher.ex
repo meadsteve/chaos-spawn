@@ -21,7 +21,9 @@ defmodule ChaosSpawn.ProcessWatcher do
 
   defcast add_pid(pid), when: is_pid(pid), state: pids do
     updated_pids = case Process.alive?(pid) do
-      true  -> [pid | pids]
+      true  ->
+        Process.monitor pid
+        [pid | pids]
       false -> pids
     end
     new_state(updated_pids)
@@ -32,8 +34,8 @@ defmodule ChaosSpawn.ProcessWatcher do
     noreply
   end
 
-  defcast tidy_pids(), state: pids do
-    new_state(pids |> ChaosSpawn.PidList.only_alive)
+  defhandleinfo {:DOWN, _, :process, dead_pid, _}, state: pids do
+    new_state(pids |> Enum.reject(fn pid -> pid == dead_pid end))
   end
 
 end
