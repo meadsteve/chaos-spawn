@@ -6,15 +6,13 @@ defmodule ChaosSpawn.Chaotic.ChaoticWorker do
   alias Supervisor.Spec, as: OriginalSupervisor
   alias ChaosSpawn.Chaotic.Supervisor.Wrapper
 
-  def worker(module, args) do
-    worker(module, args, function: :start_link)
-  end
-
-  def worker(module, args, function: start_link_function) do
+  def worker(module, args, opts \\ []) do
+    start_link_function = opts |> Keyword.get(:function, :start_link)
+    id = opts |> Keyword.get(:id, module)
     OriginalSupervisor.worker(
       Wrapper,
       [module, start_link_function, args],
-      id: module,
+      id: id,
       function: :start_link_wrapper
     )
   end

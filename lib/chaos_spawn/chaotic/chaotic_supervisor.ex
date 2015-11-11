@@ -7,15 +7,13 @@ defmodule ChaosSpawn.Chaotic.ChaoticSupervisor do
   alias Supervisor.Spec, as: OriginalSupervisor
   alias ChaosSpawn.Chaotic.Supervisor.Wrapper
 
-  def supervisor(module, args) do
-    supervisor(module, args, function: :start_link)
-  end
-
-  def supervisor(module, args, function: start_link_function) do
+  def supervisor(module, args, opts \\ []) do
+    start_link_function = opts |> Keyword.get(:function, :start_link)
+    id = opts |> Keyword.get(:id, module)
     OriginalSupervisor.supervisor(
       Wrapper,
       [module, start_link_function, args],
-      id: module,
+      id: id,
       function: :start_link_wrapper
     )
   end
