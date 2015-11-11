@@ -19,5 +19,4 @@ defmodule ChaosSpawn.Chaotic.ChaoticSupervisor do
       function: :start_link_wrapper
     )
   end
-  
 end
