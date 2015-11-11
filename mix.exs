@@ -4,6 +4,10 @@ defmodule ChaosSpawn.Mixfile do
   def project do
     [app: :chaos_spawn,
      name: "Chaos Spawn",
+     description: """
+     Providing tools to randomly kill proceses. With the goal of creating
+     robust supevision trees.
+     """,
      package: [
        maintainers: ["Steve Brazier"],
        licenses: ["MIT"],
