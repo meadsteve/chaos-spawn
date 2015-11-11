@@ -27,6 +27,9 @@ end
 Replace a call to ```worker``` with a call to ```ChaosSpawn.Chaotic.ChaoticWorker.worker```.
 Any proceses of this child will then be automatically registered as a process that can be killed.
 
+Alternatively a call to ```supervisor``` can be replaced with a call
+to ```ChaoticSupervisor.supervisor```
+
 ``` elixir
 defmodule ChaosSpawn.Example.Supervisor do
   alias ChaosSpawn.Chaotic.ChaoticWorker
