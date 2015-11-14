@@ -19,7 +19,9 @@ defmodule ChaosSpawn.Time do
     between?({h, m, s}, start_time, end_time)
   end
 
-  def between?(time, start_time, end_time) when is_tuple(time) do
+  def between?({h, m, s} = time, start_time, end_time)
+  when is_integer(h) and is_integer(m) and is_integer(s)
+  do
     time |> after?(start_time) && time |> before?(end_time)
   end
 
