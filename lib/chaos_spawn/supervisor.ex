@@ -12,9 +12,6 @@ defmodule ChaosSpawn.Supervisor do
   @process_watcher ChaosSpawn.ProcessWatcher
   @kill_loop ChaosSpawn.KillLoop
 
-  @process_tidy_up_tick 2000 #2 seconds
-
-
   def init(:ok) do
     children = [
       worker(ChaosSpawn.ProcessWatcher, [[name: @process_watcher]]),
