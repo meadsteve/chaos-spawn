@@ -41,6 +41,7 @@ defmodule ChaosSpawn.Mixfile do
       {:exactor, "~> 2.2.0"},
       {:timex, "0.19.5"},
       {:dogma, "0.0.9", only: [:dev, :test]},
+      {:credo, "0.1.9", only: [:dev, :test]},
       {:earmark, "~> 0.1", only: :dev},
       {:ex_doc, "~> 0.8", only: :dev}
     ]
