@@ -23,7 +23,7 @@ defmodule ChaosSpawn.Time do
   end
 
   def is_on_one_of_days?(erlang_datetime, days) do
-    current_day = erlang_datetime
+    erlang_datetime
       |> Timex.Date.from
       |> is_on_one_of_days?(days)
   end
