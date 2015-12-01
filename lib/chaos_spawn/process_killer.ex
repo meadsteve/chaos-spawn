@@ -22,8 +22,8 @@ defmodule ChaosSpawn.ProcessKiller do
     time_allows?(time_window)
   end
 
-  defp allowed_to_kill?(only_kill_between: time_window, only_kill_on_days: allowed_days) do
-    time_allows?(time_window) && day_allows?(allowed_days)
+  defp allowed_to_kill?(only_kill_between: window, only_kill_on_days: days) do
+    time_allows?(window) && day_allows?(days)
   end
 
   defp allowed_to_kill?(only_kill_on_days: allowed_days) do
@@ -35,7 +35,7 @@ defmodule ChaosSpawn.ProcessKiller do
   end
 
   defp day_allows?(allowed_days) do
-    Time.now |> Time.is_on_one_of_days?(allowed_days)
+    Time.now |> Time.on_one_of_days?(allowed_days)
   end
 
 end
