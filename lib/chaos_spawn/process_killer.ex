@@ -18,13 +18,24 @@ defmodule ChaosSpawn.ProcessKiller do
 
   defp allowed_to_kill?([]), do: true
 
-  defp allowed_to_kill?(only_kill_between: {start_time, end_time}) do
+  defp allowed_to_kill?(only_kill_between: time_window) do
+    time_allows?(time_window)
+  end
+
+  defp allowed_to_kill?(only_kill_between: time_window, only_kill_on_days: allowed_days) do
+    time_allows?(time_window) && day_allows?(allowed_days)
+  end
+
+  defp allowed_to_kill?(only_kill_on_days: allowed_days) do
+    day_allows?(allowed_days)
+  end
+
+  defp time_allows?({start_time, end_time}) do
     Time.now |> Time.between?(start_time, end_time)
   end
 
-  defp allowed_to_kill?(only_kill_between: {start_time, end_time}, only_kill_on_days: allowed_days) do
-    time_allows = Time.now |> Time.between?(start_time, end_time)
-    day_allows  = Time.now |> Time.is_on_one_of_days?(allowed_days)
+  defp day_allows?(allowed_days) do
+    Time.now |> Time.is_on_one_of_days?(allowed_days)
   end
 
 end
