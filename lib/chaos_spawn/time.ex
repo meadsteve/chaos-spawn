@@ -14,6 +14,20 @@ defmodule ChaosSpawn.Time do
     def now, do: Timex.Date.now
   end
 
+  def is_on_one_of_days?(%Timex.DateTime{} = datetime, days) do
+    current_day = datetime
+      |> Timex.Date.weekday
+    days
+      |> Enum.map(&Timex.Date.day_to_num/1)
+      |> Enum.any?(fn day -> day == current_day end)
+  end
+
+  def is_on_one_of_days?(erlang_datetime, days) do
+    current_day = erlang_datetime
+      |> Timex.Date.from
+      |> is_on_one_of_days?(days)
+  end
+
   def between?(%Timex.DateTime{} = time, start_time, end_time) do
     {_ignored_date, {h, m, s}} = Convert.to_erlang_datetime(time)
     between?({h, m, s}, start_time, end_time)

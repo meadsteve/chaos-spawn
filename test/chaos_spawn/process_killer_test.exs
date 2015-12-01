@@ -24,6 +24,17 @@ defmodule ProcessKillerTest do
     assert Process.alive?(pid) == false
   end
 
+  test "won't kill if config defines allowed days and today is not one of them" do
+    #during testing now is always a Saturday at {14, 50, 00}
+    kill_config = [
+      {:only_kill_between, {{10, 00, 00}, {16, 00, 00}}},
+      {:only_kill_on_days, [:mon, :tue, :wed, :thu, :fri]},
+    ]
+    pid = spawn(&ProcessKillerTest.TestModule.test_fun/0)
+    ProcessKiller.kill(pid, kill_config)
+    assert Process.alive?(pid) == true
+  end
+
 end
 
 defmodule ProcessKillerTest.TestModule do
