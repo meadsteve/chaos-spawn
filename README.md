@@ -45,6 +45,10 @@ following documents show how to do this:
 
 [HOWTO: Add chaos spawn manually](usage-manual.md)
 
+### Example
+An example of using this with the phoenix web framework can be found here:
+https://github.com/meadsteve/chaos-spawn-example
+
 ### Config
 A number of options are provided:
 #### ```kill_tick```
