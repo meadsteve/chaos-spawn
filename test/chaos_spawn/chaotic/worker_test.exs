@@ -13,7 +13,7 @@ defmodule Chaotic.WorkerTest do
       :permanent,
       5000,
       :worker,
-      [Wrapper]
+      [ModuleToCall]
     }
 
     assert ChaoticWorker.worker(ModuleToCall, args) == expected
@@ -29,10 +29,31 @@ defmodule Chaotic.WorkerTest do
       :permanent,
       5000,
       :worker,
-      [Wrapper]
+      [ModuleToCall]
     }
 
     worker = ChaoticWorker.worker(ModuleToCall, args, function: my_start_func)
+    assert worker == expected
+  end
+
+  test "worker/3 sets :id, :restart, :shutdown, :modules" do
+    args = [:arg_one, :arg_two]
+
+    expected = {
+      :special_id,
+      {Wrapper, :start_link_wrapper, [ModuleToCall, :start_link, args]},
+      :transient,
+      :brutal_kill,
+      :worker,
+      :dynamic
+    }
+
+    worker = ChaoticWorker.worker(ModuleToCall, args,
+      id: :special_id,
+      restart: :transient,
+      shutdown: :brutal_kill,
+      modules: :dynamic
+    )
     assert worker == expected
   end
 end

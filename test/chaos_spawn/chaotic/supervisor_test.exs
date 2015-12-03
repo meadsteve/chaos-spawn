@@ -13,7 +13,7 @@ defmodule Chaotic.SupervisorTest do
       :permanent,
       :infinity,
       :supervisor,
-      [Wrapper]
+      [ModuleToCall]
     }
 
     assert ChaoticSupervisor.supervisor(ModuleToCall, args) == expected
