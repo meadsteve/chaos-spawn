@@ -6,7 +6,7 @@ defmodule ChaosSpawn.PidList do
 
   def only_alive(pids) do
     pids
-      |> Stream.filter(&Process.alive?/1)
+      |> Stream.filter(&alive?/1)
   end
 
   def pick_random(pids) do
@@ -19,6 +19,10 @@ defmodule ChaosSpawn.PidList do
     rescue
       _error in MatchError -> :none
     end
+  end
+
+  defp alive?({pid, _data}) when is_pid(pid)  do
+    Process.alive?(pid)
   end
 
 end

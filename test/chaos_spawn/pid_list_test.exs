@@ -5,7 +5,7 @@ defmodule PidListTest do
   test "only_alive/1 removes dead pids" do
     pid_to_kill = spawn(&PidListTest.TestModule.test_fun/0)
     other_pid = spawn(&PidListTest.TestModule.test_fun/0)
-    list = [pid_to_kill, other_pid]
+    list = [{pid_to_kill, []}, {other_pid, []}]
     Process.exit(pid_to_kill, :kill)
 
     alive_list = PidList.only_alive(list)
@@ -13,12 +13,13 @@ defmodule PidListTest do
   end
 
   test "pick_random/1 returns :none when given empty list" do
-    pid = PidList.pick_random([])
-    assert pid == :none
+    empty_list = []
+    assert PidList.pick_random(empty_list) == :none
   end
 
-  test "pick_random/1 returns a single pid" do
-    pid = PidList.pick_random([spawn(&PidListTest.TestModule.test_fun/0)])
+  test "pick_random/1 returns a single pid and its data" do
+    single_pid = spawn(&PidListTest.TestModule.test_fun/0)
+    {pid, _data} = PidList.pick_random([{single_pid, []}])
     assert is_pid(pid)
   end
 

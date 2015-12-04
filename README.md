@@ -13,7 +13,7 @@ This is still fairly early alpha work. So please test before adding to any live 
 Add the following to your mix.exs dependencies:
 ```elixir
 defp deps do
-  [ {:chaos_spawn, "~> 0.3.0"} ]
+  [ {:chaos_spawn, "~> 0.7.0"} ]
 end
 ```
 then add chaos_spawn as an application in your mix.exs:
