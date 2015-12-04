@@ -26,11 +26,21 @@ defmodule ChaosSpawn.ProcessWatcher do
      end
   end
 
-  defcast add_pid(pid), when: is_pid(pid), state: pids do
+  defcall get_random_pid_and_data(), state: pids do
+    pids
+     |> ChaosSpawn.PidList.pick_random
+     |> reply
+  end
+
+  def add_pid(server, pid) when is_pid(pid) do
+    add_pid(server, pid, [])
+  end
+
+  defcast add_pid(pid, data), when: is_pid(pid), state: pids do
     updated_pids = case Process.alive?(pid) do
       true  ->
         Process.monitor pid
-        [{pid, []} | pids]
+        [{pid, data} | pids]
       false -> pids
     end
     new_state(updated_pids)

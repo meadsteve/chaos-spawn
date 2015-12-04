@@ -31,7 +31,7 @@ defmodule ProcessWatcherTest do
     watcher |> ProcessWatcher.add_pid(new_pid)
     assert ProcessWatcher.all_pids(watcher) != []
     Process.exit(new_pid, :kill)
-    
+
     assert not Process.alive?(new_pid)
     assert ProcessWatcher.all_pids(watcher) == []
   end
@@ -47,6 +47,18 @@ defmodule ProcessWatcherTest do
     new_pid = spawn &ProcessWatcherTest.TestModule.test_fun/0
     watcher |> ProcessWatcher.add_pid(new_pid)
     assert ProcessWatcher.get_random_pid(watcher) == new_pid
+  end
+
+  test "can request a random pid and empty extra data", %{watcher: watcher} do
+    new_pid = spawn &ProcessWatcherTest.TestModule.test_fun/0
+    watcher |> ProcessWatcher.add_pid(new_pid)
+    assert ProcessWatcher.get_random_pid_and_data(watcher) == {new_pid, []}
+  end
+
+  test "can add a pid with extra data and get it back", %{watcher: watcher} do
+    new_pid = spawn &ProcessWatcherTest.TestModule.test_fun/0
+    watcher |> ProcessWatcher.add_pid(new_pid, type: :supervisor)
+    assert ProcessWatcher.get_random_pid_and_data(watcher) == {new_pid, type: :supervisor}
   end
 
   test "random pid returns :none if no pids available", %{watcher: watcher} do
