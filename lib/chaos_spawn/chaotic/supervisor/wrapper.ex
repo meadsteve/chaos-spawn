@@ -22,12 +22,12 @@ defmodule ChaosSpawn.Chaotic.Supervisor.Wrapper do
   @doc false
   def child_spec(type, module, args, opts) do
     start_link_function = opts |> Keyword.get(:function, :start_link)
-    args = [module, start_link_function, args]
-    opts = opts
+    wrapped_args = [module, start_link_function, args]
+    updated_opts = opts
       |> Keyword.put(:function, :start_link_wrapper)
       |> Keyword.put_new(:id, module)
       |> Keyword.put_new(:modules, [module])
-    apply(Supervisor.Spec, type, [__MODULE__, args, opts])
+    apply(Supervisor.Spec, type, [__MODULE__, wrapped_args, updated_opts])
   end
 
   defp register_unless_skipped(result, module, skipped_modules) do
