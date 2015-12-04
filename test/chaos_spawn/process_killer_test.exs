@@ -8,6 +8,12 @@ defmodule ProcessKillerTest do
     assert Process.alive?(pid) == false
   end
 
+  test "can kill a pid which has no extra data" do
+    pid = spawn(&ProcessKillerTest.TestModule.test_fun/0)
+    ProcessKiller.kill({pid, []})
+    assert Process.alive?(pid) == false
+  end
+
   test "won't kill if config defines an allowed time window and now is outside" do
     #during testing now is always {14, 50, 00}
     kill_config = [{:only_kill_between, {{15, 00, 00}, {17, 00, 00}}}]

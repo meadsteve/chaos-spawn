@@ -30,6 +30,10 @@ defmodule ChaosSpawn do
     ProcessWatcher.add_pid(@process_watcher, pid)
   end
 
+  def register_process(pid, extra) do
+    ProcessWatcher.add_pid(@process_watcher, pid, extra)
+  end
+
   def process_registered?(pid) do
     ProcessWatcher.contains_pid?(@process_watcher, pid)
   end

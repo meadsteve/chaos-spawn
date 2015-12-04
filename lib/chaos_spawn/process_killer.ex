@@ -9,7 +9,9 @@ defmodule ChaosSpawn.ProcessKiller do
 
   def kill(pid), do: kill(pid, Config.kill_config)
 
-  def kill(pid, config) do
+  def kill({pid, []}, config), do: kill(pid, config)
+
+  def kill(pid, config) when is_pid(pid)  do
     if allowed_to_kill?(config) do
       Logger.debug("Killing pid #{inspect pid}")
       Process.exit(pid, :kill)
