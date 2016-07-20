@@ -17,6 +17,7 @@ env:
 script:
   - mix local.hex --force
   - mix deps.get
+  - mix deps.compile
   - mix compile --warnings-as-errors
   - mix test
   - mix dogma lib/
