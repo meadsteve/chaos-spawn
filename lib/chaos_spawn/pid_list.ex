@@ -14,7 +14,7 @@ defmodule ChaosSpawn.PidList do
       [pid] = pids
         |> Enum.shuffle
         |> only_alive
-        |> Enum.take 1
+        |> Enum.take(1)
       pid
     rescue
       _error in MatchError -> :none
