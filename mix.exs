@@ -14,7 +14,7 @@ defmodule ChaosSpawn.Mixfile do
        links: %{"GitHub" => "https://github.com/meadsteve/chaos-spawn"},
      ],
      version: "0.7.0",
-     elixir: "~> 1.1",
+     elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps]
@@ -24,7 +24,7 @@ defmodule ChaosSpawn.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger], mod: {ChaosSpawn, []}]
+    [applications: [:logger, :timex], mod: {ChaosSpawn, []}]
   end
 
   # Dependencies can be Hex packages:
@@ -39,9 +39,11 @@ defmodule ChaosSpawn.Mixfile do
   defp deps do
     [
       {:exactor, "~> 2.2.0"},
-      {:timex, "0.19.5"},
+      {:timex, "~> 3.0.5"},
+
       {:dogma, "0.0.9", only: [:dev, :test]},
       {:credo, "0.1.9", only: [:dev, :test]},
+
       {:earmark, "~> 0.1", only: :dev},
       {:ex_doc, "~> 0.8", only: :dev}
     ]

@@ -3,33 +3,31 @@ defmodule ChaosSpawn.Time do
   Wraps all time operations needed by ChaosSpawn
   """
 
-  alias Timex.Date.Convert
-
   @use_fake_now Application.get_env(:chaos_spawn, :fake_fixed_now, false)
   @fake_now {{2014, 12, 13}, {14, 50, 00}}
 
   if @use_fake_now do
-    def now, do: Timex.Date.from(@fake_now)
+    def now, do: Timex.Protocol.to_datetime(@fake_now, :utc)
   else
-    def now, do: Timex.Date.now
+    def now, do: Timex.now
   end
 
-  def on_one_of_days?(%Timex.DateTime{} = datetime, days) do
+  def on_one_of_days?(%DateTime{} = datetime, days) do
     current_day = datetime
-      |> Timex.Date.weekday
+      |> Timex.weekday
     days
-      |> Enum.map(&Timex.Date.day_to_num/1)
+      |> Enum.map(&Timex.day_to_num/1)
       |> Enum.any?(fn day -> day == current_day end)
   end
 
   def on_one_of_days?(erlang_datetime, days) do
     erlang_datetime
-      |> Timex.Date.from
+      |> Timex.Protocol.to_datetime(:utc)
       |> on_one_of_days?(days)
   end
 
-  def between?(%Timex.DateTime{} = time, start_time, end_time) do
-    {_ignored_date, {h, m, s}} = Convert.to_erlang_datetime(time)
+  def between?(%DateTime{} = time, start_time, end_time) do
+    {_ignored_date, {h, m, s}} = Timex.to_erl(time)
     between?({h, m, s}, start_time, end_time)
   end
 
