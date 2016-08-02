@@ -23,7 +23,7 @@ defmodule ChaosSpawn.KillLoop do
   defp kill_loop(interval, probability, process_watcher, active \\ true) do
     :timer.sleep(interval)
     remain_active = still_active?(active)
-    if remain_active and (:random.uniform <= probability) do
+    if remain_active and (:rand.uniform <= probability) do
       fetch_and_kill(process_watcher)
     end
     kill_loop(interval, probability, process_watcher, remain_active)
