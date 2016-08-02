@@ -2,7 +2,6 @@ defmodule Chaotic.SupervisorTest do
   use ExUnit.Case
   alias ChaosSpawn.Chaotic.ChaoticSupervisor
   alias ChaosSpawn.Chaotic.Supervisor.Wrapper
-  alias Chaotic.WorkerTest.Example
 
   test "supervisor/2 wraps up a call to Supervisor.Spec supervisor/2" do
     args = [:arg_one, :arg_two]
