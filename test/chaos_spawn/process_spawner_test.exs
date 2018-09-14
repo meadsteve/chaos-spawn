@@ -5,43 +5,43 @@ defmodule ProcessSpawnerTest do
 
   for spawn_fun <- [:spawn, :spawn_link] do
     test "#{spawn_fun}/2 spawns a processes" do
-      pid = apply(ProcessSpawner, unquote(spawn_fun), [&TestModule.test_fun/0, self])
+      pid = apply(ProcessSpawner, unquote(spawn_fun), [&TestModule.test_fun/0, self()])
       assert is_pid(pid)
     end
 
     test "#{spawn_fun}/2 sends message to watcher with new pid" do
-      pid = apply(ProcessSpawner, unquote(spawn_fun), [&TestModule.test_fun/0, self])
+      pid = apply(ProcessSpawner, unquote(spawn_fun), [&TestModule.test_fun/0, self()])
       assert_receive({:"$gen_cast", {:add_pid, ^pid}})
     end
 
     test "#{spawn_fun}/4 spawns a processes" do
-      pid = apply(ProcessSpawner, unquote(spawn_fun), [TestModule, :test_fun, [], self])
+      pid = apply(ProcessSpawner, unquote(spawn_fun), [TestModule, :test_fun, [], self()])
       assert is_pid(pid)
     end
 
     test "#{spawn_fun}/4 sends message to watcher with new pid" do
-      pid = apply(ProcessSpawner, unquote(spawn_fun), [TestModule, :test_fun, [], self])
+      pid = apply(ProcessSpawner, unquote(spawn_fun), [TestModule, :test_fun, [], self()])
       assert_receive({:"$gen_cast", {:add_pid, ^pid}})
     end
   end
 
   test "spawn_monitor/2 spawns a processes" do
-    {pid, _monitor_ref} = apply(ProcessSpawner, :spawn_monitor, [&TestModule.test_fun/0, self])
+    {pid, _monitor_ref} = apply(ProcessSpawner, :spawn_monitor, [&TestModule.test_fun/0, self()])
     assert is_pid(pid)
   end
 
   test "spawn_monitor/2 sends message to watcher with new pid" do
-    {pid, _monitor_ref} = apply(ProcessSpawner, :spawn_monitor, [&TestModule.test_fun/0, self])
+    {pid, _monitor_ref} = apply(ProcessSpawner, :spawn_monitor, [&TestModule.test_fun/0, self()])
     assert_receive({:"$gen_cast", {:add_pid, ^pid}})
   end
 
   test "spawn_monitor/4 spawns a processes" do
-    {pid, _monitor_ref} = apply(ProcessSpawner, :spawn_monitor, [TestModule, :test_fun, [], self])
+    {pid, _monitor_ref} = apply(ProcessSpawner, :spawn_monitor, [TestModule, :test_fun, [], self()])
     assert is_pid(pid)
   end
 
   test "spawn_monitor/4 sends message to watcher with new pid" do
-    {pid, _monitor_ref} = apply(ProcessSpawner, :spawn_monitor, [TestModule, :test_fun, [], self])
+    {pid, _monitor_ref} = apply(ProcessSpawner, :spawn_monitor, [TestModule, :test_fun, [], self()])
     assert_receive({:"$gen_cast", {:add_pid, ^pid}})
 
   end
