@@ -16,7 +16,7 @@ defmodule ChaosSpawn.Supervisor do
     children = [
       worker(ChaosSpawn.ProcessWatcher, [[name: @process_watcher]]),
       worker(ChaosSpawn.KillLoop,
-        [kill_tick, kill_prob, @process_watcher, [name: @kill_loop]]
+        [kill_tick(), kill_prob(), @process_watcher, [name: @kill_loop]]
       )
     ]
 
