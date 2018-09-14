@@ -30,7 +30,7 @@ defmodule ChaosSpawn.ProcessWatcher do
 
   defcast add_pid(_) do
     Logger.warn "Invalid PID recieved"
-    noreply
+    noreply()
   end
 
   defhandleinfo {:DOWN, _, :process, dead_pid, _}, state: pids do
