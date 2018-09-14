@@ -43,8 +43,7 @@ defmodule ChaosSpawn.Mixfile do
 
       {:credo, "~> 0.8", only: [:dev, :test]},
 
-      {:earmark, "~> 0.1", only: :dev},
-      {:ex_doc, "~> 0.8", only: :dev}
+      {:ex_doc, "~> 0.19", only: :dev}
     ]
   end
 end
