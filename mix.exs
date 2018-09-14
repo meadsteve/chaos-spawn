@@ -17,7 +17,7 @@ defmodule ChaosSpawn.Mixfile do
      elixir: "~> 1.3",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps()]
   end
 
   # Configuration for the OTP application
@@ -41,8 +41,7 @@ defmodule ChaosSpawn.Mixfile do
       {:exactor, "~> 2.2.0"},
       {:timex, "~> 3.0.5"},
 
-      {:dogma, "0.0.9", only: [:dev, :test]},
-      {:credo, "0.1.9", only: [:dev, :test]},
+      {:credo, "~> 0.8", only: [:dev, :test]},
 
       {:earmark, "~> 0.1", only: :dev},
       {:ex_doc, "~> 0.8", only: :dev}
