@@ -31,7 +31,7 @@ defmodule ChaosSpawn.Chaotic.Supervisor.Wrapper do
   end
 
   defp register_unless_skipped(result, module, skipped_modules) do
-    if (skip_module?(skipped_modules, module)) do
+    if skip_module?(skipped_modules, module) do
       result
     else
       result |> register_start_result

@@ -14,4 +14,4 @@ script:
   - mix deps.compile
   - mix compile --warnings-as-errors
   - mix test
-  - mix credo suggest --verbose lib/
+  - mix credo --strict

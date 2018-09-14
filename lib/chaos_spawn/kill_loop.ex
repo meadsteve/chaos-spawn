@@ -7,8 +7,8 @@ defmodule ChaosSpawn.KillLoop do
   """
 
   require Logger
-  alias ChaosSpawn.ProcessWatcher
   alias ChaosSpawn.ProcessKiller
+  alias ChaosSpawn.ProcessWatcher
 
   def start_link(interval, probability, watcher, name: pid_name) do
     pid = spawn(fn -> kill_loop(interval, probability, watcher) end)

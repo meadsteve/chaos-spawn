@@ -3,7 +3,6 @@ defmodule ChaosSpawn.PidList do
   Utilities for dealing with lists of pids
   """
 
-
   def only_alive(pids) do
     pids
       |> Stream.filter(&Process.alive?/1)

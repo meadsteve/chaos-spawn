@@ -3,6 +3,7 @@ defmodule ChaosSpawn.ProcessWatcher do
   GenServer implementation to record pids passed in and return random pids
   when requested.
   """
+  alias ChaosSpawn.PidList
   use ExActor.GenServer
   require Logger
 
@@ -13,7 +14,7 @@ defmodule ChaosSpawn.ProcessWatcher do
   defcall contains_pid?(pid), state: pids, do: reply(pids |> Enum.member?(pid))
 
   defcall get_random_pid(), state: pids do
-    pid = ChaosSpawn.PidList.pick_random(pids)
+    pid = PidList.pick_random(pids)
     reply(pid)
   end
 

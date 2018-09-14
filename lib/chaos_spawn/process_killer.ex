@@ -4,14 +4,14 @@ defmodule ChaosSpawn.ProcessKiller do
   """
 
   require Logger
-  alias ChaosSpawn.Time
   alias ChaosSpawn.Config
+  alias ChaosSpawn.Time
 
   def kill(pid), do: kill(pid, Config.kill_config)
 
   def kill(pid, config) do
     if allowed_to_kill?(config) do
-      Logger.debug("Killing pid #{inspect pid}")
+      Logger.debug(fn -> "Killing pid #{inspect pid}" end)
       Process.exit(pid, :kill)
     end
   end
