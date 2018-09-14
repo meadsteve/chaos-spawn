@@ -24,7 +24,6 @@ env:
 script:
   - mix local.hex --force
   - mix deps.get
-  - mix deps.compile
-  - mix compile --warnings-as-errors
+  - mix compile
   - mix test
   - mix credo --strict
